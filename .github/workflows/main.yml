@@ -1,0 +1,31 @@
+name: Test Sports Betting AI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Revisar app.py
+        run: python -m py_compile app.py
+
+      - name: Verificar archivos
+        run: |
+          test -f app.py
+          test -f requirements.txt
+          echo "Sports Betting AI OK"
